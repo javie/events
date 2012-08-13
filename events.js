@@ -54,16 +54,6 @@
 	}
 
 	/**
-	* Allow no conflict for Events
-	*
-	* @return {Object} Events
-	*/
-	Events.noConflict = function noConflict() {
-		root.Events = previous;
-		return this;
-	};
-
-	/**
 	 * Make Event instance or return one from cache.
 	 *
 	 * <code>
