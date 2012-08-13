@@ -43,20 +43,20 @@
 	// load all dependencies
 	_ = root._;
 
-	// Require Underscore, if we're on the server, and it's not already present.
+	// Require underscore.js, if we're on the server, and it's not already present.
 	if (!_ && ('undefined' !== typeof require)) {
 		_ = require('underscore');
 	}
 
-	// throw an error if underscore still not available
+	// throw an error if underscore.js still not available
 	if (!_) {
-		throw new Error('Expected Underscore not available');
+		throw new Error('Expected Underscore.js not available');
 	}
 
 	/**
 	* Allow no conflict for Events
 	*
-	* @return {object} Events
+	* @return {Object} Events
 	*/
 	Events.noConflict = function noConflict() {
 		root.Events = previous;
@@ -64,15 +64,20 @@
 	};
 
 	/**
-	* Make Event instance or return one from cache.
-	*
-	* @return {object} Event
-	*/
+	 * Make Event instance or return one from cache.
+	 *
+	 * <code>
+	 *     var ev = Javie.Events.make();
+	 * </code>
+	 *
+	 * @return {Object} Event
+	 */
 	Events.make = function make() {
 		var events, self;
 
 		self = this;
 
+		// Once Events.make is called, we should read it from cache.
 		if (!_.isNull(cache) && !_.isUndefined(cache)) {
 			return cache;
 		}
@@ -80,7 +85,19 @@
 		events = {};
 
 		cache  = {
-			
+			/**
+			 * Add an event listener
+			 *
+			 * <code>
+			 *     ev.listener('javie.ready', function () {
+			 *         console.log('javie.ready');
+			 *     });
+			 * </code>
+			 * 
+			 * @param  {String}   id
+			 * @param  {Function} cb
+			 * @return {Object}
+			 */
 			listener: function listener (id, cb) {
 				if (!_.isFunction(cb)) {
 					throw new Error('Callback is not a function');
@@ -95,6 +112,17 @@
 				return { id : id, cb : cb };
 			},
 
+			/**
+			 * Fire all event associated to an event id
+			 *
+			 * <code>
+			 *     ev.fire('javie.ready');
+			 * </code>
+			 * 
+			 * @param  {String} id    
+			 * @param  {Array} params
+			 * @return {Array}       
+			 */
 			fire: function fire (id, params) {
 				var me, response;
 
@@ -116,6 +144,17 @@
 				return response;
 			},
 
+			/**
+			 * Fire only the first event found in the collection
+			 *
+			 * <code>
+			 *     ev.first('javie.ready');
+			 * </code>
+			 * 
+			 * @param  {[type]} id     [description]
+			 * @param  {[type]} params [description]
+			 * @return {[type]}        [description]
+			 */
 			first: function first (id, params) {
 				var me, response, first;
 
@@ -137,6 +176,29 @@
 				});
 
 				return response[0];
+			},
+
+			until: function until(id, params) {
+				var me, response;
+
+				me       = this;
+				response = null;
+
+				if (_.isNull(id)) {
+					throw new Error('Event ID is not provided: [' + id + ']');
+				}
+
+				if (_.isNull(events[id]) || _.isNull(events[id])) {
+					return null;
+				}
+
+				_.each(events[id], function runEachEvent (callback, key) {
+					if (_.isNull(response)) {
+						response = callback.apply(me, params || []);
+					}
+				});
+
+				return null;
 			},
 
 			flush: function flush (id) {
@@ -171,6 +233,15 @@
 				});
 			},
 
+			/**
+			 * Clone original event to a new event.
+			 *
+			 * <code>
+			 *     $event = Javie.Ev
+			 * </code>
+			 * @param  {[type]} id [description]
+			 * @return {[type]}    [description]
+			 */
 			clone: function clone (id) {
 				return {
 					to : function to (cloneTo) {
