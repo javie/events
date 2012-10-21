@@ -1,6 +1,6 @@
 'use strict';
 
-describe('events', function () {
+describe('Javie.Events', function () {
 	var events;
 
 	events = require(__dirname+'/../events.js').make();

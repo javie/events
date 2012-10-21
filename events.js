@@ -1,5 +1,5 @@
 /**
- * Event (Publisher/Subscriber) for Client-side JavaScript
+ * Client-side and Node.js Event Listener Helper
  * ==========================================================
  * 
  * @package     Javie
@@ -33,7 +33,7 @@
 	}
 	else {
 		// Register Javie namespace if it's not available yet. 
-		if ('undefined' === root.Javie) {
+		if ('undefined' === typeof root.Javie) {
 			root.Javie = {};
 		}
 
