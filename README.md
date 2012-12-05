@@ -11,7 +11,7 @@ Client-side and Node.js Event Listener Helper
 
 	var ev = Javie.Events.make();
 	
-	var say = ev.listener('say', function (say) {
+	var say = ev.listen('say', function (say) {
 		jQuery('<p>').text(say).appendTo('body');
 	});
 	

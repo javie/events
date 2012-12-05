@@ -1,7 +1,7 @@
 /**
  * Client-side and Node.js Event Listener Helper
  * ==========================================================
- *
+ * 
  * @package     Javie
  * @class       Event
  * @require     underscore

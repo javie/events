@@ -4,11 +4,11 @@ describe('Javie.Events', function () {
 	var events;
 
 	events = require(__dirname+'/../events.js').make();
-	events.listener('javie.done', function () {
+	events.listen('javie.done', function () {
 		return 'javie.done-emitted';
 	});
 
-	events.listener('javie.done', function () {
+	events.listen('javie.done', function () {
 		return 'javie.done-again';
 	});
 
