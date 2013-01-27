@@ -15,11 +15,11 @@
 	var root, Events, _, cache;
 
 	// Save a reference to the global object (`window` in the browser, `global` on the server)
-	root     = this;
+	root = this;
 
 	// Create a safe reference to the Events object for use below.
-	Events  = function () {
-		return this.make();
+	Events = function () {
+		return Events.make();
 	};
 
 	// Export the object for **Node.js**, with
