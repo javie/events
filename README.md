@@ -11,18 +11,18 @@ Client-side and Node.js Event Listener Helper
 
 	var ev = Javie.Events.make();
 	
-	var say = ev.listen('say', function (say) {
+	var say = ev.listen('simon.say', function (say) {
 		jQuery('<p>').text(say).appendTo('body');
 	});
 	
-	ev.fire('say', ['hello world']);
-	ev.fire('say', ['good morning']);
-	ev.fire('say', ['goodbye']);
+	ev.fire('simon.say', ['hello world']);
+	ev.fire('simon.say', ['good morning']);
+	ev.fire('simon.say', ['goodbye']);
 	
 	// the .fire action above will create <p>hello world</p><p>good morning</p><p>goodbye</p>
 	
 	// to forget an event listener
 	ev.forget(say);
 	
-	// now .fire('say') wouldn't do anything
-	ev.fire('say', ['does not output anything']);
+	// now .fire('simon.say') wouldn't do anything
+	ev.fire('simon.say', ['does not output anything']);
