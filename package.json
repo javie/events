@@ -2,7 +2,7 @@
     "author": "Mior Muhammad Zaki",
     "name": "javie-events",
     "description": "Client-side and Node.js Event Listener Helper",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "private": false,
     "main": "events.js",
     "engines": {
