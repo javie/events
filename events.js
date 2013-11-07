@@ -1,7 +1,7 @@
 /**
  * Client-side and Node.js Event Listener Helper
  * ==========================================================
- * 
+ *
  * @package     Javie
  * @class       Event
  * @require     underscore
@@ -13,26 +13,26 @@
 
 (function () { 'use strict';
 
-	var root, Events, _, cache;
+	var root, EventDispatcher, _, cache;
 
 	// Save a reference to the global object (`window` in the browser, `global` on the server)
 	root = this;
 
-	// Create a safe reference to the Events object for use below.
-	Events = function () {
-		return Events.make();
+	// Create a safe reference to the Event Dispatcher object for use below.
+	EventDispatcher = function () {
+		return EventDispatcher.make();
 	};
 
 	// Export the object for **Node.js**, with
 	// backwards-compatibility for the old `require()` API. If we're in
-	// the browser, add `Events` as a global object via a string identifier,
-	// for Closure Compiler "advanced" mode.
+	// the browser, add `EventDispatcher` as a global object via a string
+	// identifier, for Closure Compiler "advanced" mode.
 	if ('undefined' !== typeof exports) {
 		if ('undefined' !== typeof module && module.exports) {
-			exports = module.exports = Events;
+			exports = module.exports = EventDispatcher;
 		}
 
-		exports.Events = Events;
+		exports.Events = exports.EventDispatcher = EventDispatcher;
 	}
 	else {
 		// Register Javie namespace if it's not available yet.
@@ -40,7 +40,7 @@
 			root.Javie = {};
 		}
 
-		root.Javie.Events = Events;
+		root.Javie.EventDispatcher = root.Javie.Events = EventDispatcher;
 	}
 
 	// load all dependencies
@@ -60,17 +60,17 @@
 	 * Make Event instance or return one from cache.
 	 *
 	 * <code>
-	 *     var ev = Javie.Events.make();
+	 *     var ev = Javie.EventDispatcher.make();
 	 * </code>
 	 *
 	 * @return {Object} Event
 	 */
-	Events.make = function make() {
+	EventDispatcher.make = function make() {
 		var events, self;
 
 		self = this;
 
-		// Once Events.make is called, we should read it from cache.
+		// Once EventDispatcher.make is called, we should read it from cache.
 		if (!_.isNull(cache) && !_.isUndefined(cache)) {
 			return cache;
 		}
