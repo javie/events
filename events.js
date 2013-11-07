@@ -137,7 +137,7 @@
 			fire: function fire (id, params) {
 				var me, response;
 
-				me       = this;
+				me = this;
 				response = [];
 
 				if (_.isNull(id)) {
@@ -213,7 +213,7 @@
 			},
 
 			flush: function flush (id) {
-				if ( ! _.isUndefined(events[id])) {
+				if (!_.isUndefined(events[id])) {
 					events[id] = null;
 				}
 			},
