@@ -11,7 +11,7 @@
  * @license     MIT License
  */
 
-(function () { 'use strict';
+(function() { 'use strict';
 
 	var root, EventDispatcher, _, cache;
 
@@ -19,7 +19,7 @@
 	root = this;
 
 	// Create a safe reference to the Event Dispatcher object for use below.
-	EventDispatcher = function () {
+	EventDispatcher = function() {
 		return EventDispatcher.make();
 	};
 
@@ -82,7 +82,7 @@
 			 * Add an event listener
 			 *
 			 * <code>
-			 *     ev.listen('javie.ready', function () {
+			 *     ev.listen('javie.ready', function() {
 			 *         console.log('javie.ready');
 			 *     });
 			 * </code>
@@ -91,7 +91,7 @@
 			 * @param  {Function} cb
 			 * @return {Object}
 			 */
-			listen: function listen (id, cb) {
+			listen: function listen(id, cb) {
 				if (!_.isFunction(cb)) {
 					throw new Error('Callback is not a function');
 				}
@@ -109,7 +109,7 @@
 			 * Add an event listener
 			 *
 			 * <code>
-			 *     ev.listener('javie.ready', function () {
+			 *     ev.listener('javie.ready', function() {
 			 *         console.log('javie.ready');
 			 *     });
 			 * </code>
@@ -119,7 +119,7 @@
 			 * @param  {Function} cb
 			 * @return {Object}
 			 */
-			listener: function listener (id, cb) {
+			listener: function listener(id, cb) {
 				return this.listen(id, cb);
 			},
 
@@ -131,10 +131,10 @@
 			 * </code>
 			 *
 			 * @param  {String} id
-			 * @param  {Array} params
+			 * @param  {Array}  params
 			 * @return {Array}
 			 */
-			fire: function fire (id, params) {
+			fire: function fire(id, params) {
 				var me, response;
 
 				me = this;
@@ -148,7 +148,7 @@
 					return null;
 				}
 
-				_.each(events[id], function runEachEvent (callback, key) {
+				_.each(events[id], function runEachEvent(callback, key) {
 					response.push(callback.apply(me, params || []));
 				});
 
@@ -162,14 +162,14 @@
 			 *     ev.first('javie.ready');
 			 * </code>
 			 *
-			 * @param  {[type]} id     [description]
-			 * @param  {[type]} params [description]
-			 * @return {[type]}        [description]
+			 * @param  {String} id
+			 * @param  {Array}  params
+			 * @return {mixed}
 			 */
-			first: function first (id, params) {
+			first: function first(id, params) {
 				var me, response, first;
 
-				me       = this;
+				me = this;
 				response = [];
 
 				if (_.isNull(id)) {
@@ -182,7 +182,7 @@
 
 				first = events[id].slice(0, 1);
 
-				_.each(first, function runEachEvent (callback, key) {
+				_.each(first, function runEachEvent(callback, key) {
 					response.push(callback.apply(me, params || []));
 				});
 
@@ -203,7 +203,7 @@
 					return null;
 				}
 
-				_.each(events[id], function runEachEvent (callback, key) {
+				_.each(events[id], function runEachEvent(callback, key) {
 					if (_.isNull(response)) {
 						response = callback.apply(me, params || []);
 					}
@@ -212,13 +212,13 @@
 				return null;
 			},
 
-			flush: function flush (id) {
+			flush: function flush(id) {
 				if (!_.isUndefined(events[id])) {
 					events[id] = null;
 				}
 			},
 
-			forget: function forget (handler) {
+			forget: function forget(handler) {
 				var me, id, cb;
 
 				me = this;
@@ -237,7 +237,7 @@
 					throw new Error('No registered event found for [' + id + ']');
 				}
 
-				_.each(events[id], function loopEachEvent (callback, key) {
+				_.each(events[id], function loopEachEvent(callback, key) {
 					if (callback === cb) {
 						events[id].splice(key, 1);
 					}
@@ -247,13 +247,10 @@
 			/**
 			 * Clone original event to a new event.
 			 *
-			 * <code>
-			 *     $event = Javie.Ev
-			 * </code>
-			 * @param  {[type]} id [description]
-			 * @return {[type]}    [description]
+			 * @param  {String} id
+			 * @return {void}
 			 */
-			clone: function clone (id) {
+			clone: function clone(id) {
 				return {
 					to : function to (cloneTo) {
 						events[cloneTo] = _.clone(events[id]);
