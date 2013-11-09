@@ -86,9 +86,9 @@ class EventDispatcher
 
 class EventRepository
 	constructor: ->
-		return @make()
+		return new EventDispatcher
 	make: ->
-		instance ?= new EventDispatcher
+		instance ?= new EventRepository()
 
 if exports?
 	module.exports = EventRepository if module? and module.exports

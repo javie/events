@@ -141,11 +141,11 @@
 
   EventRepository = (function() {
     function EventRepository() {
-      return this.make();
+      return new EventDispatcher;
     }
 
     EventRepository.prototype.make = function() {
-      return instance != null ? instance : instance = new EventDispatcher;
+      return instance != null ? instance : instance = new EventRepository();
     };
 
     return EventRepository;
