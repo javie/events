@@ -1,9 +1,12 @@
 'use strict';
 
-describe('Javie.Events', function () {
-	var events;
+describe('Javie.EventDispatcher', function () {
+	var EventDispatcher, events;
 
-	events = require(__dirname+'/../events.js').make();
+	EventDispatcher = require(__dirname+'/../events.js');
+	events = new EventDispatcher;
+	console.log(events.listen);
+
 	events.listen('javie.done', function () {
 		return 'javie.done-emitted';
 	});
