@@ -3,12 +3,13 @@
  * Javie.EventDispatcher
  * ==========================================================
  *
- * Client-side and Node.js Event Dispatcher Helper
+ * Event Dispatcher Helper for Client-side JavaScript
+ * and Node.js
  *
  * @package Javie
  * @class   Event
  * @require underscore
- * @version 1.2.0-dev
+ * @version 1.1.0-dev
  * @since   0.1.0
  * @author  Mior Muhammad Zaki <https://github.com/crynobone>
  * @license MIT License
@@ -21,7 +22,8 @@ root = exports ? this
 
 _ = root._
 _ = require('underscore') if !_ and require?
-throw new Error("underscore.js is missing") if !_
+unless _
+	throw new Error("underscore.js is missing")
 
 class EventDispatcher
 	clone: (id) ->
@@ -30,7 +32,8 @@ class EventDispatcher
 				events[cloneTo] = _.clone(events[id])
 				true
 	listen: (id, cb) ->
-		throw new Error("Callback is not a function") if _.isFunction(cb) is no
+		if _.isFunction(cb) is no
+			throw new Error("Callback is not a function")
 
 		response =
 			id: id
@@ -46,7 +49,9 @@ class EventDispatcher
 		me = this
 		response = []
 
-		throw new Error("Event ID [#{id}] is not available") unless id?
+		unless id?
+			throw new Error("Event ID [#{id}] is not available")
+
 		return null unless events[id]?
 
 		runEachEvent = (cb, key) ->
@@ -59,7 +64,9 @@ class EventDispatcher
 		me = this
 		response = []
 
-		throw new Error("Event ID [#{id}] is not available") unless id?
+		unless id?
+			throw new Error("Event ID [#{id}] is not available")
+
 		return null unless events[id]?
 
 		first = events[id].slice(0, 1)
@@ -73,7 +80,9 @@ class EventDispatcher
 		me = this
 		response = null
 
-		throw new Error("Event ID [#{id}] is not available") unless id?
+		unless id?
+			throw new Error("Event ID [#{id}] is not available")
+
 		return null unless events[id]?
 
 		runEachEvent = (cb, key) ->
@@ -90,9 +99,12 @@ class EventDispatcher
 		id = handler.id
 		cb = handler.cb;
 
-		throw new Error("Event ID [#{id}] is not provided") unless _.isString(id)
-		throw new Error('Callback is not a function') unless _.isFunction(cb)
-		throw new Error("Event ID [#{id}] is not available") unless events[id]?
+		unless _.isString(id)
+			throw new Error("Event ID [#{id}] is not provided")
+		unless _.isFunction(cb)
+			throw new Error('Callback is not a function')
+		unless events[id]?
+			throw new Error("Event ID [#{id}] is not available")
 
 		loopEachEvent = (callback, key) ->
 			if callback is cb

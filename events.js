@@ -4,12 +4,13 @@
  * Javie.EventDispatcher
  * ==========================================================
  *
- * Client-side and Node.js Event Dispatcher Helper
+ * Event Dispatcher Helper for Client-side JavaScript
+ * and Node.js
  *
  * @package Javie
  * @class   Event
  * @require underscore
- * @version 1.2.0-dev
+ * @version 1.1.0-dev
  * @since   0.1.0
  * @author  Mior Muhammad Zaki <https://github.com/crynobone>
  * @license MIT License
