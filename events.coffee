@@ -1,9 +1,26 @@
-instance = null
+###
+ * ==========================================================
+ * Javie.EventDispatcher
+ * ==========================================================
+ *
+ * Client-side and Node.js Event Dispatcher Helper
+ *
+ * @package Javie
+ * @class   Event
+ * @require underscore
+ * @version 1.2.0-dev
+ * @since   0.1.0
+ * @author  Mior Muhammad Zaki <https://github.com/crynobone>
+ * @license MIT License
+ * ==========================================================
+###
+
+dispatcher = null
 events = {}
 root = exports ? this
+
 _ = root._
 _ = require('underscore') if !_ and require?
-
 throw new Error("underscore.js is missing") if !_
 
 class EventDispatcher
@@ -86,9 +103,9 @@ class EventDispatcher
 
 class EventRepository
 	constructor: ->
-		return new EventDispatcher
-	make: ->
-		instance ?= new EventRepository()
+		return EventRepository.make()
+	@make: ->
+		dispatcher ?= new EventDispatcher
 
 if exports?
 	module.exports = EventRepository if module? and module.exports
